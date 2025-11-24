@@ -17,12 +17,6 @@ const createCategory = async (
   input: CategoryRequest
 ): Promise<BaseServiceResponse> => {
   const logger = createLogger(__filename)
-  // Validation
-  if (!input.name) {
-    logger.warn('Validation failed: Name is required')
-    throw new ApiError(400, 'Vui lòng nhập tên!')
-  }
-
   // Business Logic
   const category = new Category({
     name: input.name,
@@ -44,12 +38,6 @@ const updateCategory = async (
   input: CategoryRequest
 ): Promise<BaseServiceResponse> => {
   const logger = createLogger(__filename)
-  // Validation
-  if (!input.name) {
-    logger.warn('Validation failed: Name is required')
-    throw new ApiError(400, 'Vui lòng nhập tên!')
-  }
-
   // Business Logic
   const category = await Category.findByIdAndUpdate(
     id,
@@ -136,14 +124,13 @@ const getCategories = async (
   const logger = createLogger(__filename)
   const filter: any = {}
   //Validation filters
-  let pageAt = Number(input.pageAt) || PAGINATION.DEFAULT_PAGE_AT
-
-  let pageSize = Number(input.pageSize) || PAGINATION.DEFAULT_PAGE_SIZE
+  let pageAt = input.pageAt ?? PAGINATION.DEFAULT_PAGE_AT
+  let pageSize = input.pageSize ?? PAGINATION.DEFAULT_PAGE_SIZE
 
   const skip = (pageAt - 1) * pageSize
 
-  if (input.name !== undefined) {
-    filter.name = { $regex: input.name.trim(), $options: 'i' }
+  if (input.name !== undefined && input.name !== '') {
+    filter.name = { $regex: input.name, $options: 'i' }
   }
 
   if (input.isActive !== undefined) {

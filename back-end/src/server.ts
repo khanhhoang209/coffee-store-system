@@ -17,7 +17,8 @@ const startServer = async () => {
     app.listen(PORT, () => {
       logger.info(`Server is running on container port ${PORT}`)
       logger.info(`Server is running on host port ${HOST_PORT}`)
-      logger.info(`To test api: http://localhost:${HOST_PORT}/api`)
+      logger.info(`Test API (Docker): http://localhost:${HOST_PORT}/api`)
+      logger.info(`Test API (Dev): http://localhost:${PORT}/api`)
     })
   } catch (error) {
     logger.error('Failed to start server: ' + (error as Error).message)
