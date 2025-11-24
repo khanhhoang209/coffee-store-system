@@ -1,0 +1,47 @@
+services:
+  mongo:
+    image: mongo:8.0
+    container_name: coffee-mongo
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - '${MONGO_PORT}:${MONGO_PORT}'
+    networks:
+      - coffee-network
+    healthcheck:
+      test: ['CMD', 'mongosh', '--eval', "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+  api:
+    image: coffee-api:latest
+    container_name: coffee-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    env_file:
+      - .env
+    ports:
+      - '${HOST_PORT}:${CONTAINER_PORT}'
+    networks:
+      - coffee-network
+
+volumes:
+  mongo_data:
+
+networks:
+  coffee-network:
+    driver: bridge
