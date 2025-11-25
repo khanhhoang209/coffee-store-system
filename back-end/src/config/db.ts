@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { createLogger } from './logger/logger'
+import { createLogger } from './logs/logger'
 
 const connectDB = async () => {
   const mongoURI = process.env.MONGO_URI as string

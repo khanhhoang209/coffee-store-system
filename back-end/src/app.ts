@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import apiRoutes from './routes'
-import errorHandler from './middlewares/errorHandler'
+import errorHandlerMiddleware from './middlewares/errorHandlerMiddleware'
 
 dotenv.config()
 
@@ -30,7 +30,7 @@ const createApp = () => {
   app.use('/api', apiRoutes)
 
   // Error handler
-  app.use(errorHandler)
+  app.use(errorHandlerMiddleware)
 
   return app
 }

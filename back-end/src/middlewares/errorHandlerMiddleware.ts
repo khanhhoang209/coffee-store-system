@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
 import { BaseServiceResponse } from '../common/serviceResponse'
 import ApiError from '../utils/ApiError'
-import { createLogger } from '../config/logger/logger'
+import { createLogger } from '../config/logs/logger'
 
 const logger = createLogger(__filename)
 
-const errorHandler = (
+const errorHandlerMiddleware = (
   err: Error | ApiError,
   req: Request,
   res: Response,
@@ -36,4 +36,4 @@ const errorHandler = (
   res.status(statusCode).json(response)
 }
 
-export default errorHandler
+export default errorHandlerMiddleware

@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import createApp from './app'
 import connectDB from './config/db'
-import { createLogger } from './config/logger/logger'
+import { createLogger } from './config/logs/logger'
 
 dotenv.config()
 const PORT = process.env.PORT || 8080

@@ -8,7 +8,7 @@ import {
   CategoryRequest,
   CategoryResponse,
 } from '../types/category.dto'
-import { createLogger } from '../config/logger/logger'
+import { createLogger } from '../config/logs/logger'
 import Category from '../models/category'
 import ApiError from '../utils/ApiError'
 import PAGINATION from '../constants/paginations'
@@ -29,8 +29,8 @@ const createCategory = async (
   return {
     success: true,
     message: 'Tạo danh mục thành công!',
-    data: category._id,
-  } as DataServiceResponse<any>
+    data: category._id.toString(),
+  } as DataServiceResponse<string>
 }
 
 const updateCategory = async (
@@ -59,8 +59,8 @@ const updateCategory = async (
   return {
     success: true,
     message: 'Cập nhật danh mục thành công!',
-    data: category._id,
-  } as DataServiceResponse<any>
+    data: category._id.toString(),
+  } as DataServiceResponse<string>
 }
 
 const deleteCategory = async (id: string): Promise<BaseServiceResponse> => {
@@ -91,7 +91,7 @@ const deleteCategory = async (id: string): Promise<BaseServiceResponse> => {
 const getCategoryById = async (id: string): Promise<BaseServiceResponse> => {
   const logger = createLogger(__filename)
   // Business Logic
-  const category = await Category.findById(id)
+  const category = await Category.findById(id).lean().exec()
 
   // Check if category exists
   if (!category) {
@@ -99,7 +99,7 @@ const getCategoryById = async (id: string): Promise<BaseServiceResponse> => {
     throw new ApiError(404, 'Danh mục không tồn tại!')
   }
 
-  //Transform data
+  // Transform data
   const data: CategoryResponse = {
     id: category._id.toString(),
     name: category.name,
@@ -140,7 +140,12 @@ const getCategories = async (
   // Business Logic
   const [totalCount, categories] = await Promise.all([
     Category.countDocuments(filter),
-    Category.find(filter).skip(skip).limit(pageSize).sort({ createdAt: -1 }),
+    Category.find(filter)
+      .skip(skip)
+      .limit(pageSize)
+      .sort({ createdAt: -1 })
+      .lean()
+      .exec(),
   ])
 
   const totalPage = Math.ceil(totalCount / pageSize)
@@ -159,7 +164,7 @@ const getCategories = async (
   }))
 
   // Return success response
-  logger.info('Categories retrieved with total count: ' + totalCount)
+  logger.info(`Categories retrieved with total count: ${totalCount}`)
   return {
     success: true,
     message: 'Lấy danh sách danh mục thành công!',
