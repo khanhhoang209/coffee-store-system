@@ -5,17 +5,17 @@ import {
   handleGetProductById,
   handleGetProducts,
   handleUpdateProduct,
-} from '../controllers/productController'
+} from '../controllers/product.controller'
 import {
   validateBody,
   validateParams,
   validateQuery,
-} from '../middlewares/validateMiddleware'
+} from '../middlewares/validate.middleware'
 import {
   productGetRequestSchema,
   productRequestSchema,
-} from '../validations/product.schema'
-import { objectIdSchema } from '../validations/common.schema'
+} from '../schemas/product.schema'
+import { objectIdSchema } from '../schemas/common.schema'
 
 const router = Router()
 

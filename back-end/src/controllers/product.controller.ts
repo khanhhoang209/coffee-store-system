@@ -5,7 +5,7 @@ import {
   getProductById,
   getProducts,
   updateProduct,
-} from '../services/productService'
+} from '../services/product.service'
 
 const handleCreateProduct = async (req: Request, res: Response) => {
   const serviceResponse = await createProduct(req.body)

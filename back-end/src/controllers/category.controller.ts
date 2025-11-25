@@ -5,7 +5,7 @@ import {
   getCategories,
   getCategoryById,
   updateCategory,
-} from '../services/categoryService'
+} from '../services/category.service'
 
 const handleCreateCategory = async (req: Request, res: Response) => {
   const serviceResponse = await createCategory(req.body)

@@ -1,22 +1,23 @@
 import {
   BaseServiceResponse,
   DataServiceResponse,
-} from '../common/serviceResponse'
+} from '../common/service-response.type'
 import {
   ProductGetRequest,
   ProductRequest,
   ProductResponse,
 } from '../types/product.dto'
-import Product from '../models/product'
-import Category from '../models/category'
-import ApiError from '../utils/ApiError'
-import { createLogger } from '../config/logs/logger'
-import PAGINATION from '../constants/paginations'
+import Product from '../models/product.model'
+import Category from '../models/category.model'
+import ApiError from '../utils/api-error.util'
+import { createLogger } from '../configs/logs/logger.config'
+import PAGINATION from '../constants/paginations.constant'
+
+const logger = createLogger(__filename)
 
 const createProduct = async (
   input: ProductRequest
 ): Promise<BaseServiceResponse> => {
-  const logger = createLogger(__filename)
   // Business Logic
   var category = await Category.findById(input.category)
   if (!category) {
@@ -45,7 +46,6 @@ const updateProduct = async (
   id: string,
   input: ProductRequest
 ): Promise<BaseServiceResponse> => {
-  const logger = createLogger(__filename)
   // Check if category exists
   var category = await Category.findById(input.category)
   if (!category) {
@@ -81,7 +81,6 @@ const updateProduct = async (
 }
 
 const deleteProduct = async (id: string): Promise<BaseServiceResponse> => {
-  const logger = createLogger(__filename)
   // Business Logic
   const product = await Product.findByIdAndUpdate(
     id,
@@ -107,7 +106,6 @@ const deleteProduct = async (id: string): Promise<BaseServiceResponse> => {
 
 const getProductById = async (id: string): Promise<BaseServiceResponse> => {
   // Business Logic
-  const logger = createLogger(__filename)
   const product = await Product.findById(id).populate('category').lean().exec()
 
   // Check if product exists
@@ -149,7 +147,6 @@ const getProductById = async (id: string): Promise<BaseServiceResponse> => {
 const getProducts = async (
   input: ProductGetRequest
 ): Promise<BaseServiceResponse> => {
-  const logger = createLogger(__filename)
   const filter: any = {}
   //Validation filters
   let pageAt = input.pageAt ?? PAGINATION.DEFAULT_PAGE_AT

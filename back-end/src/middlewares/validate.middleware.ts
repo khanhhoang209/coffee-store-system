@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import Joi from 'joi'
-import ApiError from '../utils/ApiError'
+import ApiError from '../utils/api-error.util'
 
 export const validateBody =
   (schema: Joi.Schema) => (req: Request, res: Response, next: NextFunction) => {

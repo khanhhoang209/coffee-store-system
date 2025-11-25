@@ -5,17 +5,17 @@ import {
   handleGetCategories,
   handleGetCategoryById,
   handleUpdateCategory,
-} from '../controllers/categoryController'
+} from '../controllers/category.controller'
 import {
   validateBody,
   validateParams,
   validateQuery,
-} from '../middlewares/validateMiddleware'
+} from '../middlewares/validate.middleware'
 import {
   categoryGetRequestSchema,
   categoryRequestSchema,
-} from '../validations/category.schema'
-import { objectIdSchema } from '../validations/common.schema'
+} from '../schemas/category.schema'
+import { objectIdSchema } from '../schemas/common.schema'
 
 const router = Router()
 

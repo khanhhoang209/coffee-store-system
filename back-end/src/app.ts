@@ -2,11 +2,13 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import apiRoutes from './routes'
-import errorHandlerMiddleware from './middlewares/errorHandlerMiddleware'
+import errorHandlerMiddleware from './middlewares/error-handler.middleware'
+import { createLogger } from './configs/logs/logger.config'
 
 dotenv.config()
 
 const createApp = () => {
+  const logger = createLogger(__filename)
   const app = express()
   const allowedOrigins = [
     process.env.FRONTEND_URL,
@@ -23,7 +25,8 @@ const createApp = () => {
 
   // Health check
   app.get('/api', (req, res) => {
-    res.json({ sucess: true, message: 'API is running' })
+    logger.info('API is running')
+    res.json({ success: true, message: 'API is running' })
   })
 
   // Routes

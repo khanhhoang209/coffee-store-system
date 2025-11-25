@@ -2,21 +2,22 @@ import {
   BaseServiceResponse,
   DataServiceResponse,
   PaginationServiceResponse,
-} from '../common/serviceResponse'
+} from '../common/service-response.type'
 import {
   CategoryGetRequest,
   CategoryRequest,
   CategoryResponse,
 } from '../types/category.dto'
-import { createLogger } from '../config/logs/logger'
-import Category from '../models/category'
-import ApiError from '../utils/ApiError'
-import PAGINATION from '../constants/paginations'
+import { createLogger } from '../configs/logs/logger.config'
+import Category from '../models/category.model'
+import ApiError from '../utils/api-error.util'
+import PAGINATION from '../constants/paginations.constant'
+
+const logger = createLogger(__filename)
 
 const createCategory = async (
   input: CategoryRequest
 ): Promise<BaseServiceResponse> => {
-  const logger = createLogger(__filename)
   // Business Logic
   const category = new Category({
     name: input.name,
@@ -37,7 +38,6 @@ const updateCategory = async (
   id: string,
   input: CategoryRequest
 ): Promise<BaseServiceResponse> => {
-  const logger = createLogger(__filename)
   // Business Logic
   const category = await Category.findByIdAndUpdate(
     id,
@@ -64,7 +64,6 @@ const updateCategory = async (
 }
 
 const deleteCategory = async (id: string): Promise<BaseServiceResponse> => {
-  const logger = createLogger(__filename)
   // Business Logic
   const category = await Category.findByIdAndUpdate(
     id,
@@ -89,7 +88,6 @@ const deleteCategory = async (id: string): Promise<BaseServiceResponse> => {
 }
 
 const getCategoryById = async (id: string): Promise<BaseServiceResponse> => {
-  const logger = createLogger(__filename)
   // Business Logic
   const category = await Category.findById(id).lean().exec()
 
@@ -121,7 +119,6 @@ const getCategoryById = async (id: string): Promise<BaseServiceResponse> => {
 const getCategories = async (
   input: CategoryGetRequest
 ): Promise<BaseServiceResponse> => {
-  const logger = createLogger(__filename)
   const filter: any = {}
   //Validation filters
   let pageAt = input.pageAt ?? PAGINATION.DEFAULT_PAGE_AT

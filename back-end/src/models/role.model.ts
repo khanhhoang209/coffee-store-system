@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import ROLE_NAME from '../constants/roles'
+import ROLE_NAME from '../constants/roles.constant'
 
 const RoleSchema = new mongoose.Schema(
   {
