@@ -32,10 +32,15 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
+    command: sh -c "npx migrate-mongo up && node dist/server.js"
     env_file:
       - .env
+    environment:
+      - DOTENV_CONFIG_QUIET=true
     ports:
       - '${HOST_PORT}:${CONTAINER_PORT}'
+    volumes:
+      - ./logs:/app/logs
     networks:
       - coffee-network
 

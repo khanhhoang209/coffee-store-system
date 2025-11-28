@@ -12,5 +12,7 @@ ENV NODE_ENV=production
 COPY package*.json ./
 RUN npm install --omit=dev
 COPY --from=build /src/dist ./dist
+COPY migrate-mongo-config.js ./
+COPY migrations ./migrations
 EXPOSE 8080
 CMD ["node", "dist/server.js"]

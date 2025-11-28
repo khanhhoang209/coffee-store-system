@@ -1,11 +1,8 @@
 import express from 'express'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import apiRoutes from './routes'
 import errorHandlerMiddleware from './middlewares/error-handler.middleware'
 import { createLogger } from './configs/logs/logger.config'
-
-dotenv.config()
 
 const createApp = () => {
   const logger = createLogger(__filename)

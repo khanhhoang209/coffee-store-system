@@ -1,5 +1,5 @@
 const argon2 = require('argon2')
-require('dotenv').config()
+require('dotenv').config({ quiet: true })
 
 const ROLE_NAME = {
   ADMIN: 'Admin',
@@ -12,17 +12,6 @@ const COLLECTIONS = {
   USERS: 'users',
   CATEGORIES: 'categories',
   PRODUCTS: 'products',
-  ORDERS: 'orders',
-  ORDER_DETAILS: 'order_details',
-}
-
-const INDEX_NAME = {
-  USER_EMAIL_INDEX: 'users_email_idx',
-  ROLE_NAME_INDEX: 'roles_name_idx',
-  PRODUCT_NAME_INDEX: 'products_name_idx',
-  CATEGORY_NAME_INDEX: 'categories_name_idx',
-  ORDER_USER_INDEX: 'orders_user_idx',
-  ORDER_DETAIL_ORDER_INDEX: 'order_details_order_idx',
 }
 
 const argonConfig = {
@@ -35,68 +24,6 @@ const argonConfig = {
 
 async function hashPassword(password) {
   return argon2.hash(password, argonConfig)
-}
-
-// --- INDEX OPTIONS ---
-
-/**
- * Create necessary indexes
- * @param db {import('mongodb').Db}
- */
-async function createIndexes(db) {
-  await db
-    .collection(COLLECTIONS.USERS)
-    .createIndex(
-      { email: 1 },
-      { name: INDEX_NAME.USER_EMAIL_INDEX, unique: true }
-    )
-
-  await db
-    .collection(COLLECTIONS.ROLES)
-    .createIndex(
-      { name: 1 },
-      { name: INDEX_NAME.ROLE_NAME_INDEX, unique: true }
-    )
-
-  await db
-    .collection(COLLECTIONS.PRODUCTS)
-    .createIndex({ name: 1 }, { name: INDEX_NAME.PRODUCT_NAME_INDEX })
-
-  await db
-    .collection(COLLECTIONS.CATEGORIES)
-    .createIndex(
-      { name: 1 },
-      { name: INDEX_NAME.CATEGORY_NAME_INDEX, unique: true }
-    )
-
-  // Orders: tìm orders theo user
-  await db
-    .collection(COLLECTIONS.ORDERS)
-    .createIndex({ user: 1 }, { name: INDEX_NAME.ORDER_USER_INDEX })
-
-  // Order Details: tìm details theo order
-  await db
-    .collection(COLLECTIONS.ORDER_DETAILS)
-    .createIndex({ order: 1 }, { name: INDEX_NAME.ORDER_DETAIL_ORDER_INDEX })
-}
-
-/**
- * Drop created indexes
- * @param db {import('mongodb').Db}
- */
-async function dropIndexes(db) {
-  await db.collection(COLLECTIONS.USERS).dropIndex(INDEX_NAME.USER_EMAIL_INDEX)
-  await db.collection(COLLECTIONS.ROLES).dropIndex(INDEX_NAME.ROLE_NAME_INDEX)
-  await db
-    .collection(COLLECTIONS.PRODUCTS)
-    .dropIndex(INDEX_NAME.PRODUCT_NAME_INDEX)
-  await db
-    .collection(COLLECTIONS.CATEGORIES)
-    .dropIndex(INDEX_NAME.CATEGORY_NAME_INDEX)
-  await db.collection(COLLECTIONS.ORDERS).dropIndex(INDEX_NAME.ORDER_USER_INDEX)
-  await db
-    .collection(COLLECTIONS.ORDER_DETAILS)
-    .dropIndex(INDEX_NAME.ORDER_DETAIL_ORDER_INDEX)
 }
 
 // --- SEEDING FUNCTIONS ---
@@ -489,7 +416,7 @@ async function removeCategories(db) {
 
 module.exports = {
   /**
-   * Seed initial data into database and create indexes
+   * Seed initial data into database
    * @param db {import('mongodb').Db}
    */
   async up(db) {
@@ -497,11 +424,10 @@ module.exports = {
     await seedUsers(db)
     await seedCategories(db)
     await seedProducts(db)
-    await createIndexes(db)
   },
 
   /**
-   * Remove seeded data from database and drop indexes
+   * Remove seeded data from database
    * @param db {import('mongodb').Db}
    */
   async down(db) {
@@ -509,6 +435,5 @@ module.exports = {
     await removeCategories(db)
     await removeUsers(db)
     await removeRoles(db)
-    await dropIndexes(db)
   },
 }
