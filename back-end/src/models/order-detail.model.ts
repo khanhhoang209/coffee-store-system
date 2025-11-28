@@ -2,12 +2,12 @@ import mongoose from 'mongoose'
 
 const OrderDetailSchema = new mongoose.Schema(
   {
-    orderId: {
+    order: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Order',
       required: true,
     },
-    productId: {
+    product: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product',
       required: true,
@@ -29,4 +29,4 @@ const OrderDetailSchema = new mongoose.Schema(
   }
 )
 
-export default mongoose.model('OrderDetail', OrderDetailSchema)
+export default mongoose.model('OrderDetail', OrderDetailSchema, 'order_details')
