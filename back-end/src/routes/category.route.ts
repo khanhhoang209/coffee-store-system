@@ -16,18 +16,37 @@ import {
   categoryRequestSchema,
 } from '../schemas/category.schema'
 import { objectIdSchema } from '../schemas/common.schema'
+import { authenticate, authorize } from '../middlewares/auth.middleware'
+import ROLE_NAME from '../constants/roles.constant'
 
 const router = Router()
 
-router.post('/', validateBody(categoryRequestSchema), handleCreateCategory)
+// Public routes
+router.get('/:id', validateParams(objectIdSchema), handleGetCategoryById)
+router.get('/', validateQuery(categoryGetRequestSchema), handleGetCategories)
+
+// Protected routes
+router.post(
+  '/',
+  authenticate,
+  authorize([ROLE_NAME.ADMIN]),
+  validateBody(categoryRequestSchema),
+  handleCreateCategory
+)
 router.put(
   '/:id',
+  authenticate,
+  authorize([ROLE_NAME.ADMIN]),
   validateParams(objectIdSchema),
   validateBody(categoryRequestSchema),
   handleUpdateCategory
 )
-router.delete('/:id', validateParams(objectIdSchema), handleDeleteCategory)
-router.get('/:id', validateParams(objectIdSchema), handleGetCategoryById)
-router.get('/', validateQuery(categoryGetRequestSchema), handleGetCategories)
+router.delete(
+  '/:id',
+  authenticate,
+  authorize([ROLE_NAME.ADMIN]),
+  validateParams(objectIdSchema),
+  handleDeleteCategory
+)
 
 export default router

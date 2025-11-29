@@ -1,11 +1,16 @@
 import Joi from 'joi'
 
 export const categoryRequestSchema = Joi.object({
-  name: Joi.string().trim().min(1).required().messages({
-    'string.empty': 'Vui lòng nhập tên!',
+  name: Joi.string().trim().min(3).required().messages({
     'any.required': 'Vui lòng nhập tên!',
+    'string.empty': 'Vui lòng nhập tên!',
+    'string.base': 'Vui lòng nhập tên hợp lệ!',
+    'string.min': 'Tên phải có ít nhất 3 ký tự!',
   }),
-  description: Joi.string().trim().allow('', null),
+  description: Joi.string().trim().optional().messages({
+    'string.base': 'Vui lòng nhập mô tả hợp lệ!',
+    'string.empty': 'Mô tả không được để trống!',
+  }),
 })
 
 export const categoryGetRequestSchema = Joi.object({

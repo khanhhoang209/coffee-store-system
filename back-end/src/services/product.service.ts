@@ -7,10 +7,10 @@ import {
   ProductRequest,
   ProductResponse,
 } from '../types/product.dto'
+import { createLogger } from '../configs/logs/logger.config'
 import Product from '../models/product.model'
 import Category from '../models/category.model'
 import ApiError from '../utils/api-error.util'
-import { createLogger } from '../configs/logs/logger.config'
 import PAGINATION from '../constants/paginations.constant'
 
 const logger = createLogger(__filename)
@@ -21,7 +21,9 @@ const createProduct = async (
   // Business Logic
   var category = await Category.findById(input.category)
   if (!category) {
-    logger.warn(`Failed to retrieve category with ID: ${input.category}`)
+    logger.warn(
+      `Create product failed: Category not found with ID: ${input.category}`
+    )
     throw new ApiError(404, 'Danh mục không tồn tại!')
   }
 
@@ -49,7 +51,9 @@ const updateProduct = async (
   // Check if category exists
   var category = await Category.findById(input.category)
   if (!category) {
-    logger.warn(`Failed to retrieve category with ID: ${input.category}`)
+    logger.warn(
+      `Update product failed: Category not found with ID: ${input.category}`
+    )
     throw new ApiError(404, 'Danh mục không tồn tại!')
   }
 
@@ -67,7 +71,7 @@ const updateProduct = async (
 
   // Check if product exists
   if (!product) {
-    logger.warn(`Failed to retrieve product with ID: ${id}`)
+    logger.warn(`Update product failed: Product not found with ID: ${id}`)
     throw new ApiError(404, 'Sản phẩm không tồn tại!')
   }
 
@@ -92,7 +96,7 @@ const deleteProduct = async (id: string): Promise<BaseServiceResponse> => {
 
   // Check if product exists
   if (!product) {
-    logger.warn(`Failed to retrieve product with ID: ${id}`)
+    logger.warn(`Delete product failed: Product not found with ID: ${id}`)
     throw new ApiError(404, 'Sản phẩm không tồn tại!')
   }
 
@@ -110,7 +114,7 @@ const getProductById = async (id: string): Promise<BaseServiceResponse> => {
 
   // Check if product exists
   if (!product) {
-    logger.warn(`Failed to retrieve product with ID: ${id}`)
+    logger.warn(`Get product by ID failed: Product not found with ID: ${id}`)
     throw new ApiError(404, 'Sản phẩm không tồn tại!')
   }
 

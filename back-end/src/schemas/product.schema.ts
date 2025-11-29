@@ -1,22 +1,27 @@
 import Joi from 'joi'
 
 export const productRequestSchema = Joi.object({
-  name: Joi.string().trim().min(1).required().messages({
-    'string.empty': 'Vui lòng nhập tên!',
+  name: Joi.string().trim().min(3).required().messages({
     'any.required': 'Vui lòng nhập tên!',
+    'string.empty': 'Vui lòng nhập tên!',
+    'string.base': 'Vui lòng nhập tên hợp lệ!',
+    'string.min': 'Tên phải có ít nhất 3 ký tự!',
   }),
-  description: Joi.string().trim().allow('', null),
+  description: Joi.string().trim().optional().messages({
+    'string.base': 'Vui lòng nhập mô tả hợp lệ!',
+    'string.empty': 'Mô tả không được để trống!',
+  }),
   price: Joi.number().min(1).required().messages({
     'number.base': 'Vui lòng nhập giá hợp lệ!',
     'number.min': 'Vui lòng nhập giá hợp lệ!',
     'any.required': 'Vui lòng nhập giá!',
   }),
   category: Joi.string().length(24).hex().trim().required().messages({
-    'string.base': 'Vui lòng nhập Id danh mục hợp lệ!',
-    'string.hex': 'Vui lòng nhập Id danh mục hợp lệ!',
-    'string.length': 'Vui lòng nhập Id danh mục hợp lệ!',
-    'string.empty': 'Vui lòng nhập danh mục!',
     'any.required': 'Vui lòng nhập danh mục!',
+    'string.empty': 'Vui lòng nhập danh mục!',
+    'string.base': 'Vui lòng nhập Id danh mục hợp lệ!',
+    'string.length': 'Vui lòng nhập Id danh mục hợp lệ!',
+    'string.hex': 'Vui lòng nhập Id danh mục hợp lệ!',
   }),
 })
 

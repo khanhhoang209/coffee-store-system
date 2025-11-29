@@ -50,7 +50,7 @@ const updateCategory = async (
 
   // Check if category exists
   if (!category) {
-    logger.warn(`Failed to retrieve category with ID: ${id}`)
+    logger.warn(`Update category failed: Category not found with ID: ${id}`)
     throw new ApiError(404, 'Danh mục không tồn tại!')
   }
 
@@ -75,7 +75,7 @@ const deleteCategory = async (id: string): Promise<BaseServiceResponse> => {
 
   // Check if category exists
   if (!category) {
-    logger.warn(`Failed to retrieve category with ID: ${id}`)
+    logger.warn(`Delete category failed: Category not found with ID: ${id}`)
     throw new ApiError(404, 'Danh mục không tồn tại!')
   }
 
@@ -93,7 +93,7 @@ const getCategoryById = async (id: string): Promise<BaseServiceResponse> => {
 
   // Check if category exists
   if (!category) {
-    logger.warn(`Failed to retrieve category with ID: ${id}`)
+    logger.warn(`Get category by ID failed: Category not found with ID: ${id}`)
     throw new ApiError(404, 'Danh mục không tồn tại!')
   }
 

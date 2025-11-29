@@ -1,4 +1,7 @@
 import argon2 from 'argon2'
+import dotenv from 'dotenv'
+
+dotenv.config({ quiet: true })
 
 const argonConfig = {
   type: parseInt(

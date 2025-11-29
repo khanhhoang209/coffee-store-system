@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
+import { createLogger } from '../configs/logs/logger.config'
 import { BaseServiceResponse } from '../common/service-response.type'
 import ApiError from '../utils/api-error.util'
-import { createLogger } from '../configs/logs/logger.config'
 
 const logger = createLogger(__filename)
 
