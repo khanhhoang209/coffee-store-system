@@ -4,7 +4,7 @@ const COLLECTIONS = {
   CATEGORIES: 'categories',
   PRODUCTS: 'products',
   ORDERS: 'orders',
-  ORDER_DETAILS: 'order_details',
+  ORDER_DETAILS: 'order_details'
 }
 
 const INDEX_NAME = {
@@ -13,7 +13,7 @@ const INDEX_NAME = {
   PRODUCT_NAME_INDEX: 'products_name_idx',
   CATEGORY_NAME_INDEX: 'categories_name_idx',
   ORDER_USER_INDEX: 'orders_user_idx',
-  ORDER_DETAIL_ORDER_INDEX: 'order_details_order_idx',
+  ORDER_DETAIL_ORDER_INDEX: 'order_details_order_idx'
 }
 
 /**
@@ -23,17 +23,11 @@ const INDEX_NAME = {
 async function createIndexes(db) {
   await db
     .collection(COLLECTIONS.USERS)
-    .createIndex(
-      { email: 1 },
-      { name: INDEX_NAME.USER_EMAIL_INDEX, unique: true }
-    )
+    .createIndex({ email: 1 }, { name: INDEX_NAME.USER_EMAIL_INDEX, unique: true })
 
   await db
     .collection(COLLECTIONS.ROLES)
-    .createIndex(
-      { name: 1 },
-      { name: INDEX_NAME.ROLE_NAME_INDEX, unique: true }
-    )
+    .createIndex({ name: 1 }, { name: INDEX_NAME.ROLE_NAME_INDEX, unique: true })
 
   await db
     .collection(COLLECTIONS.PRODUCTS)
@@ -41,10 +35,7 @@ async function createIndexes(db) {
 
   await db
     .collection(COLLECTIONS.CATEGORIES)
-    .createIndex(
-      { name: 1 },
-      { name: INDEX_NAME.CATEGORY_NAME_INDEX, unique: true }
-    )
+    .createIndex({ name: 1 }, { name: INDEX_NAME.CATEGORY_NAME_INDEX, unique: true })
 
   await db
     .collection(COLLECTIONS.ORDERS)
@@ -62,16 +53,10 @@ async function createIndexes(db) {
 async function dropIndexes(db) {
   await db.collection(COLLECTIONS.USERS).dropIndex(INDEX_NAME.USER_EMAIL_INDEX)
   await db.collection(COLLECTIONS.ROLES).dropIndex(INDEX_NAME.ROLE_NAME_INDEX)
-  await db
-    .collection(COLLECTIONS.PRODUCTS)
-    .dropIndex(INDEX_NAME.PRODUCT_NAME_INDEX)
-  await db
-    .collection(COLLECTIONS.CATEGORIES)
-    .dropIndex(INDEX_NAME.CATEGORY_NAME_INDEX)
+  await db.collection(COLLECTIONS.PRODUCTS).dropIndex(INDEX_NAME.PRODUCT_NAME_INDEX)
+  await db.collection(COLLECTIONS.CATEGORIES).dropIndex(INDEX_NAME.CATEGORY_NAME_INDEX)
   await db.collection(COLLECTIONS.ORDERS).dropIndex(INDEX_NAME.ORDER_USER_INDEX)
-  await db
-    .collection(COLLECTIONS.ORDER_DETAILS)
-    .dropIndex(INDEX_NAME.ORDER_DETAIL_ORDER_INDEX)
+  await db.collection(COLLECTIONS.ORDER_DETAILS).dropIndex(INDEX_NAME.ORDER_DETAIL_ORDER_INDEX)
 }
 
 module.exports = {
@@ -89,5 +74,5 @@ module.exports = {
    */
   async down(db) {
     await dropIndexes(db)
-  },
+  }
 }

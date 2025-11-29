@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import categoryRoute from './category.route'
-import productRoute from './product.route'
-import authRoute from './auth.route'
+import categoryRoute from '~/routes/category.route'
+import productRoute from '~/routes/product.route'
+import authRoute from '~/routes/auth.route'
 
 const router = Router()
 

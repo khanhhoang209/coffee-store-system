@@ -1,4 +1,4 @@
-import { createLogger } from '../logs/logger.config'
+import { createLogger } from '~/configs/logs/logger.config'
 
 export const buildMongoURI = (): string => {
   const logger = createLogger(__filename)
@@ -11,23 +11,17 @@ export const buildMongoURI = (): string => {
   const host = process.env.MONGO_HOST
 
   if (!username) {
-    logger.error(
-      'MONGO_INITDB_ROOT_USERNAME is not defined in environment variables'
-    )
+    logger.error('MONGO_INITDB_ROOT_USERNAME is not defined in environment variables')
     process.exit(1)
   }
 
   if (!password) {
-    logger.error(
-      'MONGO_INITDB_ROOT_PASSWORD is not defined in environment variables'
-    )
+    logger.error('MONGO_INITDB_ROOT_PASSWORD is not defined in environment variables')
     process.exit(1)
   }
 
   if (!database) {
-    logger.error(
-      'MONGO_INITDB_DATABASE is not defined in environment variables'
-    )
+    logger.error('MONGO_INITDB_DATABASE is not defined in environment variables')
     process.exit(1)
   }
 

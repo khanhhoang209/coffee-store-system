@@ -1,14 +1,14 @@
 import dotenv from 'dotenv'
-import createApp from './app'
-import connectDB from './configs/database/mongo.config'
-import { createLogger } from './configs/logs/logger.config'
+import createApp from '~/app'
+import connectDB from '~/configs/database/mongo.config'
+import { createLogger } from '~/configs/logs/logger.config'
 
 dotenv.config({ quiet: true })
-const PORT = process.env.PORT || 8080
+const logger = createLogger(__filename)
 const HOST_PORT = process.env.HOST_PORT || 80
+const PORT = process.env.PORT || 8080
 
 const startServer = async () => {
-  const logger = createLogger(__filename)
   try {
     await connectDB()
 

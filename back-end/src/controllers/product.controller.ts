@@ -4,8 +4,8 @@ import {
   deleteProduct,
   getProductById,
   getProducts,
-  updateProduct,
-} from '../services/product.service'
+  updateProduct
+} from '~/services/product.service'
 
 const handleCreateProduct = async (req: Request, res: Response) => {
   const serviceResponse = await createProduct(req.body)
@@ -37,5 +37,5 @@ export {
   handleUpdateProduct,
   handleDeleteProduct,
   handleGetProductById,
-  handleGetProducts,
+  handleGetProducts
 }

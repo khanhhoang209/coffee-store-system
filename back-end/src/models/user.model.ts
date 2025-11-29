@@ -7,35 +7,35 @@ const UserSchema = new mongoose.Schema(
       required: true,
       unique: true,
       lowercase: true,
-      trim: true,
+      trim: true
     },
     passwordHash: {
       type: String,
-      required: true,
+      required: true
     },
     fullName: {
       type: String,
       default: '',
-      trim: true,
+      trim: true
     },
     phoneNumber: {
       type: String,
       default: '',
-      trim: true,
+      trim: true
     },
     isActive: {
       type: Boolean,
-      default: true,
+      default: true
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Role',
-      required: true,
-    },
+      required: true
+    }
   },
   {
     timestamps: true,
-    versionKey: false,
+    versionKey: false
   }
 )
 

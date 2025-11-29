@@ -4,8 +4,8 @@ import {
   deleteCategory,
   getCategories,
   getCategoryById,
-  updateCategory,
-} from '../services/category.service'
+  updateCategory
+} from '~/services/category.service'
 
 const handleCreateCategory = async (req: Request, res: Response) => {
   const serviceResponse = await createCategory(req.body)
@@ -13,10 +13,7 @@ const handleCreateCategory = async (req: Request, res: Response) => {
 }
 
 const handleUpdateCategory = async (req: Request, res: Response) => {
-  const serviceResponse = await updateCategory(
-    req.params.id as string,
-    req.body
-  )
+  const serviceResponse = await updateCategory(req.params.id as string, req.body)
   return res.status(200).json(serviceResponse)
 }
 
@@ -40,5 +37,5 @@ export {
   handleUpdateCategory,
   handleDeleteCategory,
   handleGetCategoryById,
-  handleGetCategories,
+  handleGetCategories
 }

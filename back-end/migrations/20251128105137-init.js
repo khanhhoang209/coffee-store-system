@@ -4,14 +4,14 @@ require('dotenv').config({ quiet: true })
 const ROLE_NAME = {
   ADMIN: 'Admin',
   USER: 'User',
-  STAFF: 'Staff',
+  STAFF: 'Staff'
 }
 
 const COLLECTIONS = {
   ROLES: 'roles',
   USERS: 'users',
   CATEGORIES: 'categories',
-  PRODUCTS: 'products',
+  PRODUCTS: 'products'
 }
 
 const argonConfig = {
@@ -19,7 +19,7 @@ const argonConfig = {
   timeCost: parseInt(process.env.ARGON_TIME_COST, 10),
   memoryCost: parseInt(process.env.ARGON_MEMORY_COST, 10),
   parallelism: parseInt(process.env.ARGON_PARALLELISM, 10),
-  hashLength: parseInt(process.env.ARGON_HASH_LENGTH, 10),
+  hashLength: parseInt(process.env.ARGON_HASH_LENGTH, 10)
 }
 
 async function hashPassword(password) {
@@ -37,7 +37,7 @@ async function seedRoles(db) {
     name,
     isActive: true,
     createdAt: new Date(),
-    updatedAt: new Date(),
+    updatedAt: new Date()
   }))
 
   await db.collection(COLLECTIONS.ROLES).insertMany(roles)
@@ -48,17 +48,11 @@ async function seedRoles(db) {
  * @param db {import('mongodb').Db}
  */
 async function seedUsers(db) {
-  const adminRole = await db
-    .collection(COLLECTIONS.ROLES)
-    .findOne({ name: ROLE_NAME.ADMIN })
+  const adminRole = await db.collection(COLLECTIONS.ROLES).findOne({ name: ROLE_NAME.ADMIN })
 
-  const userRole = await db
-    .collection(COLLECTIONS.ROLES)
-    .findOne({ name: ROLE_NAME.USER })
+  const userRole = await db.collection(COLLECTIONS.ROLES).findOne({ name: ROLE_NAME.USER })
 
-  const staffRole = await db
-    .collection(COLLECTIONS.ROLES)
-    .findOne({ name: ROLE_NAME.STAFF })
+  const staffRole = await db.collection(COLLECTIONS.ROLES).findOne({ name: ROLE_NAME.STAFF })
 
   const users = [
     {
@@ -69,7 +63,7 @@ async function seedUsers(db) {
       isActive: true,
       role: adminRole._id,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       email: 'user@example.com',
@@ -79,7 +73,7 @@ async function seedUsers(db) {
       isActive: true,
       role: userRole._id,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       email: 'staff@example.com',
@@ -89,8 +83,8 @@ async function seedUsers(db) {
       isActive: true,
       role: staffRole._id,
       createdAt: new Date(),
-      updatedAt: new Date(),
-    },
+      updatedAt: new Date()
+    }
   ]
 
   await db.collection(COLLECTIONS.USERS).insertMany(users)
@@ -107,36 +101,36 @@ async function seedCategories(db) {
       description: 'Các loại cà phê truyền thống và hiện đại',
       isActive: true,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Trà',
       description: 'Các loại trà thơm ngon, thanh mát',
       isActive: true,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Đá xay',
       description: 'Thức uống đá xay mát lạnh',
       isActive: true,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Sinh tố',
       description: 'Sinh tố trái cây tươi ngon',
       isActive: true,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Nước ép',
       description: 'Nước ép trái cây tươi nguyên chất',
       isActive: true,
       createdAt: new Date(),
-      updatedAt: new Date(),
-    },
+      updatedAt: new Date()
+    }
   ]
 
   await db.collection(COLLECTIONS.CATEGORIES).insertMany(categories)
@@ -147,10 +141,7 @@ async function seedCategories(db) {
  * @param db {import('mongodb').Db}
  */
 async function seedProducts(db) {
-  const categories = await db
-    .collection(COLLECTIONS.CATEGORIES)
-    .find()
-    .toArray()
+  const categories = await db.collection(COLLECTIONS.CATEGORIES).find().toArray()
 
   const getCategoryId = (name) => categories.find((c) => c.name === name)._id
 
@@ -163,7 +154,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Cà phê'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Cà phê sữa đá',
@@ -172,7 +163,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Cà phê'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Bạc xỉu',
@@ -181,7 +172,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Cà phê'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Cappuccino',
@@ -190,7 +181,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Cà phê'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Latte',
@@ -199,7 +190,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Cà phê'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Americano',
@@ -208,7 +199,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Cà phê'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     // Trà (5 sản phẩm)
     {
@@ -218,7 +209,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Trà'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Trà vải',
@@ -227,7 +218,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Trà'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Trà sen vàng',
@@ -236,7 +227,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Trà'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Trà sữa trân châu',
@@ -245,7 +236,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Trà'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Hồng trà chanh mật ong',
@@ -254,7 +245,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Trà'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     // Đá xay (3 sản phẩm)
     {
@@ -264,7 +255,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Đá xay'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Cookies đá xay',
@@ -273,7 +264,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Đá xay'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Matcha đá xay',
@@ -282,7 +273,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Đá xay'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     // Sinh tố (3 sản phẩm)
     {
@@ -292,7 +283,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Sinh tố'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Sinh tố xoài',
@@ -301,7 +292,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Sinh tố'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Sinh tố dâu',
@@ -310,7 +301,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Sinh tố'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     // Nước ép (3 sản phẩm)
     {
@@ -320,7 +311,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Nước ép'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Nước ép dưa hấu',
@@ -329,7 +320,7 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Nước ép'),
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date()
     },
     {
       name: 'Nước ép ổi',
@@ -338,8 +329,8 @@ async function seedProducts(db) {
       isActive: true,
       category: getCategoryId('Nước ép'),
       createdAt: new Date(),
-      updatedAt: new Date(),
-    },
+      updatedAt: new Date()
+    }
   ]
 
   await db.collection(COLLECTIONS.PRODUCTS).insertMany(products)
@@ -354,8 +345,8 @@ async function seedProducts(db) {
 async function removeUsers(db) {
   await db.collection(COLLECTIONS.USERS).deleteMany({
     email: {
-      $in: ['admin@example.com', 'user@example.com', 'staff@example.com'],
-    },
+      $in: ['admin@example.com', 'user@example.com', 'staff@example.com']
+    }
   })
 }
 
@@ -364,9 +355,7 @@ async function removeUsers(db) {
  * @param db {import('mongodb').Db}
  */
 async function removeRoles(db) {
-  await db
-    .collection(COLLECTIONS.ROLES)
-    .deleteMany({ name: { $in: Object.values(ROLE_NAME) } })
+  await db.collection(COLLECTIONS.ROLES).deleteMany({ name: { $in: Object.values(ROLE_NAME) } })
 }
 
 /**
@@ -394,11 +383,11 @@ async function removeProducts(db) {
     'Sinh tố dâu',
     'Nước ép cam',
     'Nước ép dưa hấu',
-    'Nước ép ổi',
+    'Nước ép ổi'
   ]
 
   await db.collection(COLLECTIONS.PRODUCTS).deleteMany({
-    name: { $in: productNames },
+    name: { $in: productNames }
   })
 }
 
@@ -410,7 +399,7 @@ async function removeCategories(db) {
   const categoryNames = ['Cà phê', 'Trà', 'Đá xay', 'Sinh tố', 'Nước ép']
 
   await db.collection(COLLECTIONS.CATEGORIES).deleteMany({
-    name: { $in: categoryNames },
+    name: { $in: categoryNames }
   })
 }
 
@@ -435,5 +424,5 @@ module.exports = {
     await removeCategories(db)
     await removeUsers(db)
     await removeRoles(db)
-  },
+  }
 }

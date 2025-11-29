@@ -1,15 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
-import { createLogger } from '../configs/logs/logger.config'
-import { verifyToken } from '../utils/jwt.util'
-import ApiError from '../utils/api-error.util'
+import { createLogger } from '~/configs/logs/logger.config'
+import { verifyToken } from '~/utils/jwt.util'
+import ApiError from '~/utils/api-error.util'
 
 const logger = createLogger(__filename)
 
-export const authenticate = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const authenticate = (req: Request, res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers.authorization
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -29,16 +25,13 @@ export const authenticate = (
     req.user = {
       userId: decoded.sub as string,
       email: decoded.email as string,
-      role: decoded.role as string,
+      role: decoded.role as string
     }
     next()
-  } catch (error: any) {
-    if (error.name === 'TokenExpiredError') {
+  } catch (error: unknown) {
+    if (error instanceof Error && error.name === 'TokenExpiredError') {
       logger.warn('Token has expired')
-      throw new ApiError(
-        401,
-        'Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!'
-      )
+      throw new ApiError(401, 'Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!')
     }
     logger.error('Invalid token or token has been revoked')
     throw new ApiError(403, 'Token không hợp lệ hoặc đã bị thu hồi!')

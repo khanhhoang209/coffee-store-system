@@ -6,8 +6,8 @@ const config = {
     options: {
       serverSelectionTimeoutMS: 5000,
       connectTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-    },
+      socketTimeoutMS: 45000
+    }
   },
   migrationsDir: 'migrations',
   changelogCollectionName: 'change_logs',
@@ -15,7 +15,7 @@ const config = {
   lockTtl: 0,
   migrationFileExtension: '.js',
   useFileHash: false,
-  moduleSystem: 'commonjs',
+  moduleSystem: 'commonjs'
 }
 
 module.exports = config

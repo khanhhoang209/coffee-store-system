@@ -1,35 +1,24 @@
-import {
-  BaseServiceResponse,
-  DataServiceResponse,
-} from '../common/service-response.type'
-import { createLogger } from '../configs/logs/logger.config'
-import {
-  LoginRequest,
-  LoginResponse,
-  RegisterRequest,
-  TokenRequest,
-} from '../types/auth.dto'
-import { hashPassword, verifyPassword } from '../utils/password.util'
-import { jwtConfig } from '../configs/jwt/jwt.config'
-import { generateToken } from '../utils/jwt.util'
-import User from '../models/user.model'
-import Role from '../models/role.model'
-import ApiError from '../utils/api-error.util'
+import { BaseServiceResponse, DataServiceResponse } from '~/common/service-response.type'
+import { LoginRequest, LoginResponse, RegisterRequest, TokenRequest } from '~/types/auth.dto'
+import { createLogger } from '~/configs/logs/logger.config'
+import { hashPassword, verifyPassword } from '~/utils/password.util'
+import { jwtConfig } from '~/configs/jwt/jwt.config'
+import { generateToken } from '~/utils/jwt.util'
+import User from '~/models/user.model'
+import Role from '~/models/role.model'
+import ApiError from '~/utils/api-error.util'
 
 const logger = createLogger(__filename)
 
-const register = async (
-  input: RegisterRequest,
-  roleName: string
-): Promise<BaseServiceResponse> => {
+const register = async (input: RegisterRequest, roleName: string): Promise<BaseServiceResponse> => {
   // Business logic
-  var email = await User.findOne({ email: input.email })
+  const email = await User.findOne({ email: input.email })
   if (email) {
     logger.warn(`Registration failed: Email ${input.email} already in use`)
     throw new ApiError(400, 'Email đã được sử dụng!')
   }
 
-  var role = await Role.findOne({ name: roleName })
+  const role = await Role.findOne({ name: roleName })
   if (!role) {
     logger.error(`Registration failed: Role ${roleName} not found`)
     throw new ApiError(404, 'Vai trò không tồn tại!')
@@ -42,7 +31,7 @@ const register = async (
     passwordHash: passwordHash,
     fullName: input.fullName || '',
     phoneNumber: input.phoneNumber || '',
-    role: role._id,
+    role: role._id
   })
 
   await user.save()
@@ -52,7 +41,7 @@ const register = async (
   return {
     success: true,
     message: 'Đăng ký tài khoản thành công!',
-    data: user._id.toString(),
+    data: user._id.toString()
   } as DataServiceResponse<string>
 }
 
@@ -64,11 +53,7 @@ const login = async (input: LoginRequest): Promise<BaseServiceResponse> => {
     throw new ApiError(400, 'Tài khoản hoặc mật khẩu không đúng!')
   }
 
-  const isPasswordValid = await verifyPassword(
-    user.passwordHash,
-    input.password
-  )
-
+  const isPasswordValid = await verifyPassword(user.passwordHash, input.password)
   if (!isPasswordValid) {
     logger.warn(`Login failed: Invalid password for email ${input.email}`)
     throw new ApiError(400, 'Tài khoản hoặc mật khẩu không đúng!')
@@ -83,13 +68,13 @@ const login = async (input: LoginRequest): Promise<BaseServiceResponse> => {
   const tokenRequest: TokenRequest = {
     userId: user._id.toString(),
     email: user.email,
-    role: role,
+    role: role
   }
   const token = generateToken(tokenRequest)
 
   const data: LoginResponse = {
     token: token,
-    expiresIn: jwtConfig.expiresIn as string,
+    expiresIn: jwtConfig.expiresIn as string
   }
 
   // Return success response
@@ -97,7 +82,7 @@ const login = async (input: LoginRequest): Promise<BaseServiceResponse> => {
   return {
     success: true,
     message: 'Đăng nhập thành công!',
-    data: data,
+    data: data
   } as DataServiceResponse<LoginResponse>
 }
 

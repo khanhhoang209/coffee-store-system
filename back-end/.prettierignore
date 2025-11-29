@@ -1,0 +1,8 @@
+dist/
+node_modules/
+lib/
+coverage/
+logs/
+package-lock.json
+yarn.lock
+prnpm-lock.json

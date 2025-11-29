@@ -4,20 +4,13 @@ import {
   handleDeleteProduct,
   handleGetProductById,
   handleGetProducts,
-  handleUpdateProduct,
-} from '../controllers/product.controller'
-import {
-  validateBody,
-  validateParams,
-  validateQuery,
-} from '../middlewares/validate.middleware'
-import {
-  productGetRequestSchema,
-  productRequestSchema,
-} from '../schemas/product.schema'
-import { objectIdSchema } from '../schemas/common.schema'
-import { authenticate, authorize } from '../middlewares/auth.middleware'
-import ROLE_NAME from '../constants/roles.constant'
+  handleUpdateProduct
+} from '~/controllers/product.controller'
+import { validateBody, validateParams, validateQuery } from '~/middlewares/validate.middleware'
+import { productGetRequestSchema, productRequestSchema } from '~/schemas/product.schema'
+import { objectIdSchema } from '~/schemas/common.schema'
+import { authenticate, authorize } from '~/middlewares/auth.middleware'
+import ROLE_NAME from '~/constants/roles.constant'
 
 const router = Router()
 

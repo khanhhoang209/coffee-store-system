@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from 'express'
-import { createLogger } from '../configs/logs/logger.config'
-import { BaseServiceResponse } from '../common/service-response.type'
-import ApiError from '../utils/api-error.util'
+import { NextFunction, Request, Response } from 'express'
+import { createLogger } from '~/configs/logs/logger.config'
+import { BaseServiceResponse } from '~/common/service-response.type'
+import ApiError from '~/utils/api-error.util'
 
 const logger = createLogger(__filename)
 
@@ -30,7 +30,7 @@ const errorHandlerMiddleware = (
 
   const response: BaseServiceResponse = {
     success: false,
-    message,
+    message
   }
 
   res.status(statusCode).json(response)

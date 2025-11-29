@@ -1,7 +1,7 @@
 import path from 'path'
 import winston from 'winston'
 import 'winston-daily-rotate-file'
-import loggerColors from './logger.color'
+import loggerColors from '~/configs/logs/logger.color'
 
 winston.addColors(loggerColors)
 
@@ -30,25 +30,25 @@ const baseLogger = winston.createLogger({
   level: 'info',
   transports: [
     new winston.transports.Console({
-      format: consoleFormat,
+      format: consoleFormat
     }),
     new winston.transports.File({
       filename: 'logs/error.log',
       level: 'error',
-      format: fileFormat,
+      format: fileFormat
     }),
     new winston.transports.File({
       filename: 'logs/combined.log',
-      format: fileFormat,
+      format: fileFormat
     }),
     new winston.transports.DailyRotateFile({
       filename: 'logs/%DATE%.log',
       datePattern: 'DD-MM-YYYY',
       maxSize: '20m',
       maxFiles: '14d',
-      format: fileFormat,
-    }),
-  ],
+      format: fileFormat
+    })
+  ]
 })
 
 export const createLogger = (filename: string) => {
@@ -57,7 +57,7 @@ export const createLogger = (filename: string) => {
   return {
     info: (message: string) => baseLogger.info(message, { context }),
     warn: (message: string) => baseLogger.warn(message, { context }),
-    error: (message: string) => baseLogger.error(message, { context }),
+    error: (message: string) => baseLogger.error(message, { context })
   }
 }
 

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import ROLE_NAME from '../constants/roles.constant'
+import ROLE_NAME from '~/constants/roles.constant'
 
 const RoleSchema = new mongoose.Schema(
   {
@@ -7,16 +7,16 @@ const RoleSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      enum: Object.values(ROLE_NAME),
+      enum: Object.values(ROLE_NAME)
     },
     isActive: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   {
     timestamps: true,
-    versionKey: false,
+    versionKey: false
   }
 )
 

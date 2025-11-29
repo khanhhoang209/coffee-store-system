@@ -1,4 +1,4 @@
-import { TokenRequest } from './auth.dto'
+import { TokenRequest } from '~/types/auth.dto'
 
 declare module 'express-serve-static-core' {
   namespace Express {

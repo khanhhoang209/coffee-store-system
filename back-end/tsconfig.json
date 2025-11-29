@@ -1,29 +1,42 @@
 {
   "compilerOptions": {
+    /* --- Basic  Options ---*/
     "target": "esnext",
     "module": "commonjs",
     "rootDir": "./src",
     "outDir": "./dist",
-
     "moduleResolution": "node",
     "esModuleInterop": true,
-
     "types": ["node"],
     "lib": ["esnext"],
 
+    /* --- Paths mapping --- */
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+
+    /* --- Build Output --- */
     "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    "removeComments": true,
 
+    /* --- Source Map Options --- */
+    "declaration": false,
+    "declarationMap": false,
+
+    /* --- Type Checking & Safety --- */
     "strict": true,
-    "skipLibCheck": true,
-
-    "noUncheckedIndexedAccess": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
   "ts-node": {
-    "files": true
-  }
+    "files": true,
+    "require": ["tsconfig-paths/register"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"]
 }

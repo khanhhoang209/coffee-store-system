@@ -1,5 +1,5 @@
-import { PaginationRequest } from '../common/pagination-request.type'
-import { CategoryResponse } from './category.dto'
+import { PaginationRequest } from '~/common/pagination-request.type'
+import { CategoryResponse } from '~/types/category.dto'
 
 export interface ProductRequest {
   name: string

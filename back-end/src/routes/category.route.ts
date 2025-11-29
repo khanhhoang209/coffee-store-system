@@ -4,20 +4,13 @@ import {
   handleDeleteCategory,
   handleGetCategories,
   handleGetCategoryById,
-  handleUpdateCategory,
-} from '../controllers/category.controller'
-import {
-  validateBody,
-  validateParams,
-  validateQuery,
-} from '../middlewares/validate.middleware'
-import {
-  categoryGetRequestSchema,
-  categoryRequestSchema,
-} from '../schemas/category.schema'
-import { objectIdSchema } from '../schemas/common.schema'
-import { authenticate, authorize } from '../middlewares/auth.middleware'
-import ROLE_NAME from '../constants/roles.constant'
+  handleUpdateCategory
+} from '~/controllers/category.controller'
+import { validateBody, validateParams, validateQuery } from '~/middlewares/validate.middleware'
+import { categoryGetRequestSchema, categoryRequestSchema } from '~/schemas/category.schema'
+import { objectIdSchema } from '~/schemas/common.schema'
+import { authenticate, authorize } from '~/middlewares/auth.middleware'
+import ROLE_NAME from '~/constants/roles.constant'
 
 const router = Router()
 

@@ -1,7 +1,7 @@
 const loggerColors = {
   info: 'green',
   warn: 'yellow',
-  error: 'red',
+  error: 'red'
 }
 
 export default loggerColors

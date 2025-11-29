@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import ORDER_STATUS from '../constants/orders.constant'
+import ORDER_STATUS from '~/constants/orders.constant'
 
 const OrderSchema = new mongoose.Schema(
   {
@@ -7,31 +7,31 @@ const OrderSchema = new mongoose.Schema(
       type: String,
       required: true,
       enum: Object.values(ORDER_STATUS),
-      default: ORDER_STATUS.PENDING,
+      default: ORDER_STATUS.PENDING
     },
     totalPrice: {
       type: Number,
       required: true,
       default: 0,
-      min: 0,
+      min: 0
     },
     payAt: {
       type: Date,
-      default: null,
+      default: null
     },
     isActive: {
       type: Boolean,
-      default: true,
+      default: true
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
-    },
+      required: true
+    }
   },
   {
     timestamps: true,
-    versionKey: false,
+    versionKey: false
   }
 )
 

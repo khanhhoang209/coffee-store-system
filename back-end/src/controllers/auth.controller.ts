@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { register, login } from '../services/auth.service'
-import ROLE_NAME from '../constants/roles.constant'
+import { register, login } from '~/services/auth.service'
+import ROLE_NAME from '~/constants/roles.constant'
 
 const handleRegister = async (req: Request, res: Response) => {
   const serviceResponse = await register(req.body, ROLE_NAME.USER)

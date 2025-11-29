@@ -1,27 +1,21 @@
 import {
   BaseServiceResponse,
   DataServiceResponse,
-  PaginationServiceResponse,
-} from '../common/service-response.type'
-import {
-  CategoryGetRequest,
-  CategoryRequest,
-  CategoryResponse,
-} from '../types/category.dto'
-import { createLogger } from '../configs/logs/logger.config'
-import Category from '../models/category.model'
-import ApiError from '../utils/api-error.util'
-import PAGINATION from '../constants/paginations.constant'
+  PaginationServiceResponse
+} from '~/common/service-response.type'
+import { CategoryGetRequest, CategoryRequest, CategoryResponse } from '~/types/category.dto'
+import { createLogger } from '~/configs/logs/logger.config'
+import Category from '~/models/category.model'
+import ApiError from '~/utils/api-error.util'
+import PAGINATION from '~/constants/paginations.constant'
 
 const logger = createLogger(__filename)
 
-const createCategory = async (
-  input: CategoryRequest
-): Promise<BaseServiceResponse> => {
+const createCategory = async (input: CategoryRequest): Promise<BaseServiceResponse> => {
   // Business Logic
   const category = new Category({
     name: input.name,
-    description: input.description || '',
+    description: input.description || ''
   })
   await category.save()
 
@@ -30,20 +24,17 @@ const createCategory = async (
   return {
     success: true,
     message: 'Tạo danh mục thành công!',
-    data: category._id.toString(),
+    data: category._id.toString()
   } as DataServiceResponse<string>
 }
 
-const updateCategory = async (
-  id: string,
-  input: CategoryRequest
-): Promise<BaseServiceResponse> => {
+const updateCategory = async (id: string, input: CategoryRequest): Promise<BaseServiceResponse> => {
   // Business Logic
   const category = await Category.findByIdAndUpdate(
     id,
     {
       name: input.name,
-      description: input.description || '',
+      description: input.description || ''
     },
     { new: true }
   )
@@ -59,7 +50,7 @@ const updateCategory = async (
   return {
     success: true,
     message: 'Cập nhật danh mục thành công!',
-    data: category._id.toString(),
+    data: category._id.toString()
   } as DataServiceResponse<string>
 }
 
@@ -68,7 +59,7 @@ const deleteCategory = async (id: string): Promise<BaseServiceResponse> => {
   const category = await Category.findByIdAndUpdate(
     id,
     {
-      isActive: false,
+      isActive: false
     },
     { new: true }
   )
@@ -83,7 +74,7 @@ const deleteCategory = async (id: string): Promise<BaseServiceResponse> => {
   logger.info(`Category deleted with ID: ${category._id}`)
   return {
     success: true,
-    message: 'Xóa danh mục thành công!',
+    message: 'Xóa danh mục thành công!'
   }
 }
 
@@ -104,7 +95,7 @@ const getCategoryById = async (id: string): Promise<BaseServiceResponse> => {
     description: category.description,
     isActive: category.isActive,
     createdAt: category.createdAt,
-    updatedAt: category.updatedAt,
+    updatedAt: category.updatedAt
   }
 
   // Return success response
@@ -112,17 +103,15 @@ const getCategoryById = async (id: string): Promise<BaseServiceResponse> => {
   return {
     success: true,
     message: 'Lấy danh mục thành công!',
-    data,
+    data
   } as DataServiceResponse<CategoryResponse>
 }
 
-const getCategories = async (
-  input: CategoryGetRequest
-): Promise<BaseServiceResponse> => {
+const getCategories = async (input: CategoryGetRequest): Promise<BaseServiceResponse> => {
   const filter: any = {}
   //Validation filters
-  let pageAt = input.pageAt ?? PAGINATION.DEFAULT_PAGE_AT
-  let pageSize = input.pageSize ?? PAGINATION.DEFAULT_PAGE_SIZE
+  const pageAt = input.pageAt ?? PAGINATION.DEFAULT_PAGE_AT
+  const pageSize = input.pageSize ?? PAGINATION.DEFAULT_PAGE_SIZE
 
   const skip = (pageAt - 1) * pageSize
 
@@ -137,12 +126,7 @@ const getCategories = async (
   // Business Logic
   const [totalCount, categories] = await Promise.all([
     Category.countDocuments(filter),
-    Category.find(filter)
-      .skip(skip)
-      .limit(pageSize)
-      .sort({ createdAt: -1 })
-      .lean()
-      .exec(),
+    Category.find(filter).skip(skip).limit(pageSize).sort({ createdAt: -1 }).lean().exec()
   ])
 
   const totalPage = Math.ceil(totalCount / pageSize)
@@ -157,7 +141,7 @@ const getCategories = async (
     description: category.description,
     isActive: category.isActive,
     createdAt: category.createdAt,
-    updatedAt: category.updatedAt,
+    updatedAt: category.updatedAt
   }))
 
   // Return success response
@@ -172,14 +156,8 @@ const getCategories = async (
     totalCurrentCount,
     hasPreviousPage,
     hasNextPage,
-    data,
+    data
   } as PaginationServiceResponse<CategoryResponse>
 }
 
-export {
-  createCategory,
-  updateCategory,
-  deleteCategory,
-  getCategoryById,
-  getCategories,
-}
+export { createCategory, updateCategory, deleteCategory, getCategoryById, getCategories }

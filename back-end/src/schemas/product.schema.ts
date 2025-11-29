@@ -5,50 +5,50 @@ export const productRequestSchema = Joi.object({
     'any.required': 'Vui lòng nhập tên!',
     'string.empty': 'Vui lòng nhập tên!',
     'string.base': 'Vui lòng nhập tên hợp lệ!',
-    'string.min': 'Tên phải có ít nhất 3 ký tự!',
+    'string.min': 'Tên phải có ít nhất 3 ký tự!'
   }),
   description: Joi.string().trim().optional().messages({
     'string.base': 'Vui lòng nhập mô tả hợp lệ!',
-    'string.empty': 'Mô tả không được để trống!',
+    'string.empty': 'Mô tả không được để trống!'
   }),
   price: Joi.number().min(1).required().messages({
     'number.base': 'Vui lòng nhập giá hợp lệ!',
     'number.min': 'Vui lòng nhập giá hợp lệ!',
-    'any.required': 'Vui lòng nhập giá!',
+    'any.required': 'Vui lòng nhập giá!'
   }),
   category: Joi.string().length(24).hex().trim().required().messages({
     'any.required': 'Vui lòng nhập danh mục!',
     'string.empty': 'Vui lòng nhập danh mục!',
     'string.base': 'Vui lòng nhập Id danh mục hợp lệ!',
     'string.length': 'Vui lòng nhập Id danh mục hợp lệ!',
-    'string.hex': 'Vui lòng nhập Id danh mục hợp lệ!',
-  }),
+    'string.hex': 'Vui lòng nhập Id danh mục hợp lệ!'
+  })
 })
 
 export const productGetRequestSchema = Joi.object({
   pageAt: Joi.number().integer().min(1).default(1).messages({
     'number.base': 'Vui lòng nhập số trang lớn hơn 0!',
     'number.min': 'Vui lòng nhập số trang lớn hơn 0!',
-    'number.integer': 'Vui lòng nhập số trang lớn hơn 0!',
+    'number.integer': 'Vui lòng nhập số trang lớn hơn 0!'
   }),
   pageSize: Joi.number().integer().min(1).default(8).messages({
     'number.base': 'Vui lòng nhập kích thước trang lớn hơn 0!',
     'number.min': 'Vui lòng nhập kích thước trang lớn hơn 0!',
-    'number.integer': 'Vui lòng nhập kích thước trang lớn hơn 0!',
+    'number.integer': 'Vui lòng nhập kích thước trang lớn hơn 0!'
   }),
   isActive: Joi.boolean().optional().messages({
-    'boolean.base': 'Vui lòng nhập trạng thái hợp lệ!',
+    'boolean.base': 'Vui lòng nhập trạng thái hợp lệ!'
   }),
   name: Joi.string().trim().allow('', null),
   categoryName: Joi.string().trim().allow('', null),
   minPrice: Joi.number().min(1).default(1).allow(null).messages({
     'number.base': 'Vui lòng nhập giá hợp lệ!',
-    'number.min': 'Vui lòng nhập giá hợp lệ!',
+    'number.min': 'Vui lòng nhập giá hợp lệ!'
   }),
   maxPrice: Joi.number().min(1).default(1000000).allow(null).messages({
     'number.base': 'Vui lòng nhập giá hợp lệ!',
-    'number.min': 'Vui lòng nhập giá hợp lệ!',
-  }),
+    'number.min': 'Vui lòng nhập giá hợp lệ!'
+  })
 })
   .custom((value, helpers) => {
     if (
@@ -59,11 +59,11 @@ export const productGetRequestSchema = Joi.object({
       value.minPrice > value.maxPrice
     ) {
       return helpers.error('any.invalid', {
-        message: 'Giá tối thiểu không được lớn hơn giá tối đa!',
+        message: 'Giá tối thiểu không được lớn hơn giá tối đa!'
       })
     }
     return value
   })
   .messages({
-    'any.invalid': 'Giá tối thiểu không được lớn hơn giá tối đa!',
+    'any.invalid': 'Giá tối thiểu không được lớn hơn giá tối đa!'
   })

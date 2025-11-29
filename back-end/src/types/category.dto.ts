@@ -1,4 +1,4 @@
-import { PaginationRequest } from '../common/pagination-request.type'
+import { PaginationRequest } from '~/common/pagination-request.type'
 
 export interface CategoryRequest {
   name: string

@@ -4,20 +4,20 @@ const CategorySchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: true
     },
     description: {
       type: String,
-      default: '',
+      default: ''
     },
     isActive: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   {
     timestamps: true,
-    versionKey: false,
+    versionKey: false
   }
 )
 
