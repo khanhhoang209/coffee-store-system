@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { createLogger } from '~/configs/logs/logger.config'
+import { createLogger } from '~/configs/logger/logger.config'
 import { verifyToken } from '~/utils/jwt.util'
 import ApiError from '~/utils/api-error.util'
 

@@ -1,6 +1,6 @@
 import { BaseServiceResponse, DataServiceResponse } from '~/common/service-response.type'
 import { ProductGetRequest, ProductRequest, ProductResponse } from '~/types/product.dto'
-import { createLogger } from '~/configs/logs/logger.config'
+import { createLogger } from '~/configs/logger/logger.config'
 import Product from '~/models/product.model'
 import Category from '~/models/category.model'
 import ApiError from '~/utils/api-error.util'

@@ -151,7 +151,7 @@ back-end/
 │   │   ├── argon/             # Argon2 config
 │   │   ├── database/          # MongoDB connection
 │   │   ├── jwt/               # JWT config
-│   │   └── logs/              # Winston logger config
+│   │   └── logger/            # Winston logger config
 │   ├── constants/             # Constants
 │   ├── controllers/           # Route controllers
 │   ├── middlewares/           # Express middlewares

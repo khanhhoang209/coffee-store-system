@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { createLogger } from '~/configs/logs/logger.config'
+import { createLogger } from '~/configs/logger/logger.config'
 import { BaseServiceResponse } from '~/common/service-response.type'
 import ApiError from '~/utils/api-error.util'
 

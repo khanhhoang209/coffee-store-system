@@ -1,6 +1,6 @@
 import { BaseServiceResponse, DataServiceResponse } from '~/common/service-response.type'
 import { LoginRequest, LoginResponse, RegisterRequest, TokenRequest } from '~/types/auth.dto'
-import { createLogger } from '~/configs/logs/logger.config'
+import { createLogger } from '~/configs/logger/logger.config'
 import { hashPassword, verifyPassword } from '~/utils/password.util'
 import { jwtConfig } from '~/configs/jwt/jwt.config'
 import { generateToken } from '~/utils/jwt.util'

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { createLogger } from '~/configs/logs/logger.config'
+import { createLogger } from '~/configs/logger/logger.config'
 import { buildMongoURI } from '~/configs/database/mongo.connection'
 
 const logger = createLogger(__filename)

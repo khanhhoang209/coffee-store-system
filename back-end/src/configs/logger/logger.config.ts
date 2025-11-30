@@ -1,7 +1,7 @@
 import path from 'path'
 import winston from 'winston'
 import 'winston-daily-rotate-file'
-import loggerColors from '~/configs/logs/logger.color'
+import loggerColors from '~/configs/logger/logger.color'
 
 winston.addColors(loggerColors)
 

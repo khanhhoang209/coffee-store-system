@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import createApp from '~/app'
 import connectDB from '~/configs/database/mongo.config'
-import { createLogger } from '~/configs/logs/logger.config'
+import { createLogger } from '~/configs/logger/logger.config'
 
 dotenv.config({ quiet: true })
 const logger = createLogger(__filename)

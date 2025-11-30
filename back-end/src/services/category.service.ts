@@ -4,7 +4,7 @@ import {
   PaginationServiceResponse
 } from '~/common/service-response.type'
 import { CategoryGetRequest, CategoryRequest, CategoryResponse } from '~/types/category.dto'
-import { createLogger } from '~/configs/logs/logger.config'
+import { createLogger } from '~/configs/logger/logger.config'
 import Category from '~/models/category.model'
 import ApiError from '~/utils/api-error.util'
 import PAGINATION from '~/constants/paginations.constant'

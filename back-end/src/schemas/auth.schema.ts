@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import Joi from 'joi'
 
 export const registerRequestSchema = Joi.object({

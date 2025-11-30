@@ -1,4 +1,4 @@
-import { createLogger } from '~/configs/logs/logger.config'
+import { createLogger } from '~/configs/logger/logger.config'
 
 export const buildMongoURI = (): string => {
   const logger = createLogger(__filename)
