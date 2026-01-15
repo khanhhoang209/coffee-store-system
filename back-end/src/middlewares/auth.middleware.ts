@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { createLogger } from '~/configs/logger/logger.config'
-import { verifyToken } from '~/utils/jwt.util'
+import { verifyJwtToken } from '~/utils/jwt.util'
 import ApiError from '~/utils/api-error.util'
 
 const logger = createLogger(__filename)
@@ -15,7 +15,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
 
     const token = authHeader.split(' ')[1] as string
 
-    const decoded = verifyToken(token)
+    const decoded = verifyJwtToken(token)
 
     if (typeof decoded === 'string') {
       logger.warn('Token is invalid')

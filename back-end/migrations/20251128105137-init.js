@@ -61,6 +61,7 @@ async function seedUsers(db) {
       fullName: 'Administrator',
       phoneNumber: '',
       isActive: true,
+      isEmailVerified: true,
       role: adminRole._id,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -71,6 +72,7 @@ async function seedUsers(db) {
       fullName: 'User',
       phoneNumber: '',
       isActive: true,
+      isEmailVerified: true,
       role: userRole._id,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -81,6 +83,7 @@ async function seedUsers(db) {
       fullName: 'Staff',
       phoneNumber: '',
       isActive: true,
+      isEmailVerified: true,
       role: staffRole._id,
       createdAt: new Date(),
       updatedAt: new Date()

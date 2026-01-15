@@ -27,6 +27,10 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: true
     },
+    isEmailVerified: {
+      type: Boolean,
+      default: false
+    },
     role: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Role',

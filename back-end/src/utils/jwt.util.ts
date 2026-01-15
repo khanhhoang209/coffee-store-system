@@ -1,8 +1,9 @@
 import jwt, { SignOptions, VerifyOptions, JwtPayload } from 'jsonwebtoken'
+import { jwtEmailConfig } from '~/configs/jwt/jwt-email.config'
 import { jwtConfig } from '~/configs/jwt/jwt.config'
 import { TokenRequest } from '~/types/auth.dto'
 
-export const generateToken = (input: TokenRequest): string => {
+export const generateJwtToken = (input: TokenRequest): string => {
   const payload = {
     sub: input.userId,
     email: input.email,
@@ -19,7 +20,7 @@ export const generateToken = (input: TokenRequest): string => {
   return jwt.sign(payload, jwtConfig.secret, signOptions)
 }
 
-export const verifyToken = (token: string): JwtPayload | string => {
+export const verifyJwtToken = (token: string): JwtPayload | string => {
   const verifyOptions: VerifyOptions = {
     issuer: jwtConfig.issuer,
     audience: jwtConfig.audience,
@@ -29,4 +30,19 @@ export const verifyToken = (token: string): JwtPayload | string => {
   return jwt.verify(token, jwtConfig.secret, verifyOptions) as JwtPayload | string
 }
 
-export default { generateToken, verifyToken }
+export const generateEmailJwtToken = (email: string) => {
+  const payload = {
+    email,
+    type: 'verify-mail'
+  }
+
+  return jwt.sign(payload, jwtEmailConfig.secret, {
+    expiresIn: jwtEmailConfig.expiresIn
+  })
+}
+
+export const verifyEmailJwtToken = (token: string): JwtPayload | string => {
+  return jwt.verify(token, jwtEmailConfig.secret) as JwtPayload | string
+}
+
+export default { generateJwtToken, verifyJwtToken }
